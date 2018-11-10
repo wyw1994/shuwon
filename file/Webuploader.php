@@ -117,6 +117,7 @@ uploader.on( 'uploadSuccess', function( file, data ) {
     $( '#picker_{$this->options['id']}' ).prev().attr('href','{$web}/'+data.url);
     $( '#picker_{$this->options['id']}' ).prev().find('img').attr('src','/admin/img/file.jpg');
     $( '#{$this->options['id']}' ).val(data.url);
+    $('button[type="button"]').html('替换文件')
 });
 JS
         );

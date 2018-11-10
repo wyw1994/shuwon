@@ -5,7 +5,7 @@
  * @license http://www.shuwon.com/
  */
  
-namespace xww\image;
+namespace shuwon\images;
 
 use yii\base\Exception;
 use yii\helpers\Html;
@@ -112,13 +112,11 @@ uploader.on( 'uploadProgress', function( file, percentage ) {
 });
 // 完成上传完了，成功或者失败，先删除进度条。
 uploader.on( 'uploadSuccess', function( file, data ) {
-    console.log(data);
     $( '#picker_{$this->options['id']}' ).next().fadeOut();
-    $( '#picker_{$this->options['id']}' ).prev().attr('src',''+data.url);
-    $( '#{$this->options['id']}' ).val(data.mongodbid);
-	$( '#{$this->options['id']}_local' ).val(data.localimg);
-			
-    });
+    $( '#picker_{$this->options['id']}' ).prev().attr('src','{$web}/'+data.url);
+    $( '#{$this->options['id']}' ).val(data.url);
+    $('button[type="button"]').html('替换文件')
+});
 JS
         );
     }

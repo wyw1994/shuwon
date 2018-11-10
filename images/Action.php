@@ -5,7 +5,7 @@
  * @license http://www.shuwon.com/
  */
 
-namespace xww\image;
+namespace shuwon\images;
 
 use Yii;
 use yii\web\Response;
@@ -45,9 +45,7 @@ class Action extends \yii\base\Action
 
     private function local()
     {
-    	/*
         $uploader = UploadedFile::getInstanceByName('file');
-        
         $root = Yii::getAlias('@staticroot');
         $path = 'upload/image/' . date('Ymd') . '/';
         $dir = $root . '/' . $path;
@@ -56,54 +54,6 @@ class Action extends \yii\base\Action
         }
         $name = time() . '.' . $uploader->extension;
         $uploader->saveAs($dir . $name);
-       
-       */
-    	$name = $_FILES['file']['name'];
-    	$size = $_FILES['file']['size'];
-    	$name_tmp = $_FILES['file']['tmp_name'];
-    	$type = strtolower(substr(strrchr($name, '.'), 1)); //获取文件类型
-    	
-    	//压缩图片
-    	$pic_name = time() . rand(10000, 99999) . "." . $type;
-    	$thumb='test_thumb.jpg';
-    	$this->resizeImage($name_tmp, $thumb);
-    	
-        //存储图片到图片服务器
-        header('content-type:text/html;charset=utf8');
-         
-        $curl = curl_init();
-        if($type=='jpeg'){
-        	$cfile = curl_file_create($thumb,'image/jpeg','testpic');
-        }elseif($type=='jpg'){
-        	$cfile = curl_file_create($thumb,'image/jpg','testpic');
-        }elseif($type=='png'){
-        	$cfile = curl_file_create($thumb,'image/png','testpic');
-        }elseif($type=='gif'){
-        	$cfile = curl_file_create($thumb,'image/gif','testpic');
-        }
-        
-        //$data = array('img'=>'@'. $path.$pic_name);
-        $data = array('myimage' => $cfile);
-        curl_setopt($curl, CURLOPT_URL, "http://182.150.41.12:900/uploadimg");
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POST, true);
-        //curl_setopt($curl, CURLOPT_SAFE_UPLOAD, false);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        $result = curl_exec($curl);
-        curl_close($curl);
-        $result = json_decode($result,true);
-        
-        
-        $base64_img = $this->base64EncodeImage($thumb);
-        $collection = Yii::$app->mongodb->getCollection ('mycollection');
-        //插入操作
-        $data = [
-        		'image' => $base64_img
-        ];
-        $mongodbobj = $collection->insert($data);
-        $mongodbarr = (array)$mongodbobj;
-        $mongodbid =  $mongodbarr['oid'];
-
         /**
          * 得到上传文件所对应的各个参数,数组结构
          * array(
@@ -117,11 +67,11 @@ class Action extends \yii\base\Action
          */
         return [
             'state' => 'success',
-            
-            'url' => $base64_img,
-            'title' => $name,
-        	'mongodbid' => $mongodbid,
-        	'localimg' => $result['name']
+            'type' => $uploader->type,
+            'size' => $uploader->size,
+            'original' => $uploader->name,
+            'url' => $path . $name,
+            'title' => $name
         ];
     }
     private function resizeImage($imagePath, $thumb, $width = 700, $height = 950)

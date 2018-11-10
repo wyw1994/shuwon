@@ -5,7 +5,7 @@
  * @license http://www.shuwon.com/
  */
  
-namespace xww\image;
+namespace shuwon\images;
 
 use yii\web\AssetBundle;
 class WebuploaderAsset extends AssetBundle{

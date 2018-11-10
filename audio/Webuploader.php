@@ -89,7 +89,7 @@ var uploader = WebUploader.create({
 
         accept: {
             title: 'Audio',
-            extensions: 'mp3,wma,rm,wav,midi',
+            extensions: 'mp3,wma,rm,wav,midi,flac',
             mimeTypes: 'audio/*'
         },
 
@@ -116,6 +116,8 @@ uploader.on( 'uploadSuccess', function( file, data ) {
     $( '#picker_{$this->options['id']}' ).prev().find("source").attr('src','{$web}/'+data.url);
     $( '#picker_{$this->options['id']}' ).prev().find("embed").attr('src','{$web}/'+data.url);
     $( '#{$this->options['id']}' ).val(data.url);
+    $('audio').load()
+    $('button[type="button"]').html('替换文件')
 });
 JS
         );

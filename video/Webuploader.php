@@ -45,7 +45,7 @@ class Webuploader extends InputWidget{
         }
         
         $this->options['boxId'] = isset($this->options['boxId']) ? $this->options['boxId'] : $this->options['id'].'_box';
-        $this->options['innerHTML'] = isset($this->options['innerHTML']) ? $this->options['innerHTML'] : '<video controls="controls" src="" width="200"><div id="picker_'.$this->options['id'].'" /><button class="btn btn-default" type="button">选择视频</button></div>';
+        $this->options['innerHTML'] = isset($this->options['innerHTML']) ? $this->options['innerHTML'] : '<video controls="controls" src="" width="200"></video><div id="picker_'.$this->options['id'].'" /><button class="btn btn-default" type="button">选择视频</button></div>';
         $this->options['innerHTML'] .= '<div id="webuploaderList_'.$this->options['id'].'" class="uploader-list"></div>';
         $this->options['previewWidth'] = isset($this->options['previewWidth']) ? $this->options['previewWidth'] : '250';
         $this->options['previewHeight'] = isset($this->options['previewHeight']) ? $this->options['previewHeight'] : '150';
@@ -116,6 +116,7 @@ uploader.on( 'uploadSuccess', function( file, data ) {
     $( '#picker_{$this->options['id']}' ).next().fadeOut();
     $( '#picker_{$this->options['id']}' ).prev().attr('src','{$web}/'+data.url);
     $( '#{$this->options['id']}' ).val(data.url);
+    $('button[type="button"]').html('替换文件')
 });
 JS
         );
