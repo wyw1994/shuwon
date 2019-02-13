@@ -117,7 +117,7 @@ uploader.on( 'uploadSuccess', function( file, data ) {
     $( '#picker_{$this->options['id']}' ).prev().find("embed").attr('src','{$web}/'+data.url);
     $( '#{$this->options['id']}' ).val(data.url);
     $('audio').load()
-    $('button[type="button"]').html('替换文件')
+    $('button[type=button]').html('替换文件')
 });
 JS
         );

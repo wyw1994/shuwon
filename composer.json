@@ -1,6 +1,6 @@
 {
-"name": "wyw1994/shuwon",
-"description": "Yii2 wyw1994 shuwon",
+"name": "shuwon",
+"description": "Yii2 shuwon",
 "keywords": [
 "yii2",
 "shuwon"
@@ -14,12 +14,12 @@
 "authors": [
 {
 "name": "shuwon",
-"email": "xww@wyw1.cn"
+"email": "xww@shuwon.com"
 }
 ],
 "minimum-stability": "stable",
 "require": {
-"php": ">=5.4.0",
+"php": ">=5.6",
 "yiisoft/yii2": ">=2.0.6"
 },
 "autoload": {
@@ -27,7 +27,8 @@
 "shuwon\\images\\": "images/",
 "shuwon\\audio\\": "audio/",
 "shuwon\\video\\": "video/",
-"shuwon\\file\\": "file/"
+"shuwon\\file\\": "file/",
+"shuwon\\pic\\": "pic/"
 }
 },
 "config": {

@@ -179,6 +179,7 @@ uploader.on( 'uploadProgress', function( file, percentage ) {
         var url = data.key;
         $( '#picker_{$this->options['id']}' ).next().fadeOut();
         $( '#picker_{$this->options['id']}' ).prev().attr('href','{$this->domain}/'+url);
+         $( '#picker_{$this->options['id']}' ).prev().find('img').attr('src','/admin/img/file.jpg');
         $( '#{$this->options['id']}' ).val(url);
     });
 }, 'json');

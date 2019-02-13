@@ -5,7 +5,7 @@
  * @license http://www.shuwon.com/
  */
 
-namespace shuwon\images;
+namespace shuwon\pic;
 
 use Qiniu\Auth;
 use Yii;
@@ -46,6 +46,33 @@ class Action extends \yii\base\Action
 
     private function local()
     {
+        header('Content-type:text/html;charset=utf-8');
+        $base64_image_content       = \Yii::$app->request->post('file',null);
+        if(!$base64_image_content) return ['code'=>404,'msg'=>'数据不能为空',data=>null];
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
+            $type = $result[2];
+            $root = Yii::getAlias('@staticroot');
+            $path = 'upload/image/' . date('Ymd') . '/';
+            $dir = $root . '/' . $path;
+            if (!is_dir($dir)) {
+                mkdir($dir, 0755, true);
+            }
+            $name = time().".{$type}";
+            $new_file = $dir.$name;
+            // base64解码后保存图片
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
+                return [
+                    'state' => 'success',
+                    'type' => $type,
+                    'original' => $new_file,
+                    'url' => $path . $name,
+                    'title' => $name
+                ];
+            }else
+                return ['code'=>4041,'msg'=>'文件保存失败','data'=>null];
+        }
+
+
         $uploader = UploadedFile::getInstanceByName('file');
         $root = Yii::getAlias('@staticroot');
         $path = 'upload/image/' . date('Ymd') . '/';
