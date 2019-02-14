@@ -25,11 +25,11 @@
   },
   "autoload": {
     "psr-4": {
-      "shuwon\\images\\": "images/",
-      "shuwon\\audio\\": "audio/",
-      "shuwon\\video\\": "video/",
-      "shuwon\\file\\": "file/",
-      "shuwon\\pic\\": "pic/",
+      "shuwon\\images\\": "upload/images/",
+      "shuwon\\audio\\": "upload/audio/",
+      "shuwon\\video\\": "upload/video/",
+      "shuwon\\file\\": "upload/file/",
+      "shuwon\\pic\\": "upload/pic/",
       "shuwon\\excel\\": "yii2-excel/",
       "shuwon\\ueditor\\": "ueditor/"
     }
